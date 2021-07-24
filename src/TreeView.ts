@@ -1,5 +1,7 @@
 import { Generatable } from './Generatable.js';
 
+const BUBBLE = '_bubble';
+
 class TreeView<t> implements Generatable<HTMLUListElement>{
 
     root: TreeViewItem<t>;
@@ -7,8 +9,11 @@ class TreeView<t> implements Generatable<HTMLUListElement>{
 
     constructor(root: TreeViewItem<t>) {
         this.root = root;
-        this.root.addEventListener('click', (e) => {
-            console.log('hello!');
+        this.root.addEventListener(BUBBLE, (e: CustomEvent) => {
+
+            const target = e.detail;
+
+            console.log(target);
 
         });
     }
@@ -73,8 +78,12 @@ class TreeViewItem<t> extends EventTarget implements Generatable<HTMLLIElement>{
         this.children.push(child);
 
         child.addEventListener('click',()=>{
-            console.log('blah');
-        },true);
+            this.dispatchEvent(new CustomEvent(BUBBLE,{detail:child}));
+        });
+
+        child.addEventListener(BUBBLE,(e : CustomEvent)=>{
+            this.dispatchEvent(new CustomEvent(BUBBLE,{detail:e.detail}));
+        });
     }
 
     setParent(parent: TreeViewItem<t>) {
@@ -82,7 +91,7 @@ class TreeViewItem<t> extends EventTarget implements Generatable<HTMLLIElement>{
     }
 
     _emitClick(): void {
-        this.dispatchEvent(new CustomEvent('click', { bubbles: true }));
+        this.dispatchEvent(new CustomEvent('click'));
     }
 }
 
