@@ -1,7 +1,8 @@
 {
     "compilerOptions":{
         "target" : "es6",
-        "outDir" : "../target",
+        "outDir" : "./target",
         "sourceMap" : true
-    }
+    },
+    "exclude": ["node_modules"]
 }
