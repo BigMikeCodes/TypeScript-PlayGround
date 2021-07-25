@@ -16,5 +16,8 @@
   "homepage": "https://github.com/BigMikeCodes/TypeScript-PlayGround#readme",
   "devDependencies": {
     "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@stomp/stompjs": "^6.1.0"
   }
 }
