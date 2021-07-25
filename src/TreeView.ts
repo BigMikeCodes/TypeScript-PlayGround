@@ -2,19 +2,18 @@ import { Generatable } from './Generatable.js';
 
 const BUBBLE = '_bubble';
 
-class TreeView<t> implements Generatable<HTMLUListElement>{
+class TreeView<t> extends EventTarget implements Generatable<HTMLUListElement>{
 
     root: TreeViewItem<t>;
     selected: TreeViewItem<t>;
 
     constructor(root: TreeViewItem<t>) {
+        super();
+
         this.root = root;
         this.root.addEventListener(BUBBLE, (e: CustomEvent) => {
-
-            const target = e.detail;
-
-            console.log(target);
-
+            this.selected = e.detail;
+            this.dispatchEvent(new CustomEvent('onSelectedChange',{detail:this.selected}));
         });
     }
 
@@ -22,7 +21,9 @@ class TreeView<t> implements Generatable<HTMLUListElement>{
         return this.root;
     }
 
-    getSelected() {}
+    getSelected(): TreeViewItem<t>{
+        return this.selected;
+    }
 
     generateElement(): HTMLUListElement {
         const ul = document.createElement('ul');
