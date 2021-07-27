@@ -2,7 +2,10 @@
     "compilerOptions":{
         "target" : "es6",
         "outDir" : "./target",
-        "sourceMap" : true
+        "sourceMap": true,
+        "module": "es6",
+        "moduleResolution": "node",
+        "baseUrl": "./"
     },
     "exclude": ["node_modules"]
 }

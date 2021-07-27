@@ -1,8 +1,9 @@
-import {TreeView,TreeViewItem} from './TreeView.js';
+import {TreeView,TreeViewItem} from './TreeView';
+import {Client} from '../node_modules/@stomp/stompjs/esm6/client';
 
 class WebApp{
 
-    static main(){
+    static main(): void{
 
         const root = new TreeViewItem<String>('root');
 
@@ -20,6 +21,9 @@ class WebApp{
         
         const container = document.querySelector('#tree-view-container');
         container.append(tree.generateElement());
+
+
+        const client = new Client();
 
     }
 }

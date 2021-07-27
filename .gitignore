@@ -1,3 +1,4 @@
 target/*.js
 target/*.map
 node_modules
+dist
