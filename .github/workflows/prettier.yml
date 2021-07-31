@@ -5,6 +5,7 @@ jobs:
   prettier:
     name: Check Prettier
     runs-on: ubuntu-latest
-      uses: actions/checkout@v2
-      uses: actions/setup-node@v2
-      run: npm run check
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm run check
