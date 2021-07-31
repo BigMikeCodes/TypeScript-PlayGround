@@ -1,7 +1,5 @@
-interface Generatable<t extends HTMLElement>{
-
-    generateElement:() => t;
-
+interface Generatable<t extends HTMLElement> {
+    generateElement: () => t;
 }
 
-export{Generatable};
+export { Generatable };
