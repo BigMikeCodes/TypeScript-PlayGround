@@ -17,7 +17,7 @@ class WebApp {
 
         const tree = new TreeView<String>(root);
 
-        const container = document.querySelector("#tree-view-container");
+        const container = document.querySelector('#tree-view-container');
         container.append(tree.generateElement());
 
         const client = new Client();
