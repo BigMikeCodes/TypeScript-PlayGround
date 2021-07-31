@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "compile": "npx webpack"
+    "compile": "npx webpack",
+    "check": "prettier --check './src/*'"
   },
   "repository": {
     "type": "git",
