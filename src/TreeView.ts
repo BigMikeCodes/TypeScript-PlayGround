@@ -46,6 +46,7 @@ class TreeViewItem<t>
     value: t;
     li: HTMLLIElement;
     ul: HTMLUListElement;
+    shown: boolean;
 
     constructor(value: t) {
         super();
@@ -55,6 +56,9 @@ class TreeViewItem<t>
 
         this.li = document.createElement('li');
         this.ul = document.createElement('ul');
+
+        this.shown = false;
+
     }
 
     getChildren(): Array<TreeViewItem<t>> {
@@ -73,6 +77,7 @@ class TreeViewItem<t>
         );
 
         this.li.append(a, this.ul);
+        this.shown = true;
         return this.li;
     }
 
@@ -90,6 +95,10 @@ class TreeViewItem<t>
         child.addEventListener(BUBBLE, (e: CustomEvent) => {
             this.dispatchEvent(new CustomEvent(BUBBLE, { detail: e.detail }));
         });
+
+        if(this.shown){
+            this.ul.append(child.generateElement());
+        }
     }
 
     setParent(parent: TreeViewItem<t>) {

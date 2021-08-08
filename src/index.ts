@@ -25,10 +25,17 @@ class WebApp {
             '#tree-view-controls-container'
         );
 
+        let count = 0;
+
         const addBtnConfig: ButtonInputConfig = {
             id: 'add-item-tree-view',
             onClick: (e: Event) => {
-                console.log('add item clicked');
+                const selectedItem = tree.getSelected();
+                
+                if(selectedItem){
+                    selectedItem.addChild(new TreeViewItem<String>(`Dynamic Child ${count++}`));
+                }
+
             },
             text: 'New...',
         };
