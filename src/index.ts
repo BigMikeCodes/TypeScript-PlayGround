@@ -1,6 +1,6 @@
 import { TreeView, TreeViewItem } from './TreeView';
 import { TreeViewControls } from './TreeViewControls';
-import { MenuBar,ButtonInputConfig, buttonFromConfig } from './ControlBar';
+import { MenuBar, ButtonInputConfig, buttonFromConfig } from './ControlBar';
 import { Client } from '../node_modules/@stomp/stompjs/esm6/client';
 
 class WebApp {
@@ -25,27 +25,30 @@ class WebApp {
         const controlsContainer = document.querySelector(
             '#tree-view-controls-container'
         );
-        
+
         // const treeViewControls = new TreeViewControls(tree);
 
         const addBtnConfig: ButtonInputConfig = {
             id: 'add-item-tree-view',
-            onClick: (e: Event)=>{console.log('add item clicked')},
-            text: 'New...'
-        }  
+            onClick: (e: Event) => {
+                console.log('add item clicked');
+            },
+            text: 'New...',
+        };
 
-        const deleteBtnConfig: ButtonInputConfig ={
+        const deleteBtnConfig: ButtonInputConfig = {
             id: 'delete-selected-tree-view',
-            onClick: (e: Event) => {console.log('delete clicked');},
-            text: 'Delete Selected'
-        }
+            onClick: (e: Event) => {
+                console.log('delete clicked');
+            },
+            text: 'Delete Selected',
+        };
 
-        const treeViewButtons = [
-            addBtnConfig,
-            deleteBtnConfig
-        ];
+        const treeViewButtons = [addBtnConfig, deleteBtnConfig];
 
-        const treeViewControls = new MenuBar(...treeViewButtons.map(config=>buttonFromConfig(config)));
+        const treeViewControls = new MenuBar(
+            ...treeViewButtons.map((config) => buttonFromConfig(config))
+        );
         controlsContainer.append(treeViewControls.generateElement());
     }
 }
