@@ -1,4 +1,5 @@
 import { TreeView, TreeViewItem } from './TreeView';
+import { TreeViewControls } from './TreeViewControls';
 import { Client } from '../node_modules/@stomp/stompjs/esm6/client';
 
 class WebApp {
@@ -20,7 +21,12 @@ class WebApp {
         const container = document.querySelector('#tree-view-container');
         container.append(tree.generateElement());
 
-        const client = new Client();
+        const controlsContainer = document.querySelector(
+            '#tree-view-controls-container'
+        );
+        const treeViewControls = new TreeViewControls(tree);
+
+        controlsContainer.append(treeViewControls.generateElement());
     }
 }
 
