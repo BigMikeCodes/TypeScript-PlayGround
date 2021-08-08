@@ -31,11 +31,12 @@ class WebApp {
             id: 'add-item-tree-view',
             onClick: (e: Event) => {
                 const selectedItem = tree.getSelected();
-                
-                if(selectedItem){
-                    selectedItem.addChild(new TreeViewItem<String>(`Dynamic Child ${count++}`));
-                }
 
+                if (selectedItem) {
+                    selectedItem.addChild(
+                        new TreeViewItem<String>(`Dynamic Child ${count++}`)
+                    );
+                }
             },
             text: 'New...',
         };

@@ -58,7 +58,6 @@ class TreeViewItem<t>
         this.ul = document.createElement('ul');
 
         this.shown = false;
-
     }
 
     getChildren(): Array<TreeViewItem<t>> {
@@ -96,7 +95,7 @@ class TreeViewItem<t>
             this.dispatchEvent(new CustomEvent(BUBBLE, { detail: e.detail }));
         });
 
-        if(this.shown){
+        if (this.shown) {
             this.ul.append(child.generateElement());
         }
     }
