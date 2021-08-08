@@ -42,7 +42,7 @@ class TreeViewItem<t>
     implements Generatable<HTMLLIElement>
 {
     parent: TreeViewItem<t>;
-    children: Array<TreeViewItem<t>>;
+    children: Set<TreeViewItem<t>>;
     value: t;
     li: HTMLLIElement;
     ul: HTMLUListElement;
@@ -50,7 +50,7 @@ class TreeViewItem<t>
 
     constructor(value: t) {
         super();
-        this.children = new Array();
+        this.children = new Set();
         this.parent = null;
         this.value = value;
 
@@ -60,7 +60,7 @@ class TreeViewItem<t>
         this.shown = false;
     }
 
-    getChildren(): Array<TreeViewItem<t>> {
+    getChildren(): Set<TreeViewItem<t>> {
         return this.children;
     }
 
@@ -85,7 +85,8 @@ class TreeViewItem<t>
     }
 
     addChild(child: TreeViewItem<t>): void {
-        this.children.push(child);
+        this.children.add(child);
+        child.setParent(this);
 
         child.addEventListener('click', () => {
             this.dispatchEvent(new CustomEvent(BUBBLE, { detail: child }));
@@ -106,6 +107,16 @@ class TreeViewItem<t>
 
     _emitClick(): void {
         this.dispatchEvent(new CustomEvent('click'));
+    }
+
+    remove() {
+        this.li.remove();
+        this.ul.remove();
+        this.parent.removeChild(this);
+    }
+
+    removeChild(treeViewItem: TreeViewItem<t>): Boolean {
+        return this.children.delete(treeViewItem);
     }
 }
 
