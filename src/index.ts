@@ -1,5 +1,4 @@
 import { TreeView, TreeViewItem } from './TreeView';
-import { TreeViewControls } from './TreeViewControls';
 import { MenuBar, ButtonInputConfig, buttonFromConfig } from './ControlBar';
 import { Client } from '../node_modules/@stomp/stompjs/esm6/client';
 
@@ -25,8 +24,6 @@ class WebApp {
         const controlsContainer = document.querySelector(
             '#tree-view-controls-container'
         );
-
-        // const treeViewControls = new TreeViewControls(tree);
 
         const addBtnConfig: ButtonInputConfig = {
             id: 'add-item-tree-view',
