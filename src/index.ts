@@ -44,14 +44,14 @@ class WebApp {
         const deleteBtnConfig: ButtonInputConfig = {
             id: 'delete-selected-tree-view',
             onClick: (e: Event) => {
-                const selectedItem = tree.getSelected();
-
-                if (selectedItem) {
-                    selectedItem.remove();
-                }
+                tree.removeItem(tree.getSelected());
             },
             text: 'Delete Selected',
         };
+
+        tree.addEventListener('change', () => {
+            alert('change');
+        });
 
         const treeViewButtons = [addBtnConfig, deleteBtnConfig];
 

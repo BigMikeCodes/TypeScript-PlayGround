@@ -13,7 +13,7 @@ class TreeView<t> extends EventTarget implements Generatable<HTMLUListElement> {
         this.root.addEventListener(BUBBLE, (e: CustomEvent) => {
             this.selected = e.detail;
             this.dispatchEvent(
-                new CustomEvent('onSelectedChange', { detail: this.selected })
+                new CustomEvent('change', { detail: this.selected })
             );
         });
     }
@@ -34,6 +34,15 @@ class TreeView<t> extends EventTarget implements Generatable<HTMLUListElement> {
             .forEach((child) => ul.append(child.generateElement()));
 
         return ul;
+    }
+
+    removeItem(item: TreeViewItem<t>) {
+        if (item) {
+            if (this.getSelected() === item) {
+                this.selected = null;
+            }
+            item.remove();
+        }
     }
 }
 
