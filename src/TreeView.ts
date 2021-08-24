@@ -3,7 +3,10 @@ import { DISPLAY_NONE } from './CssClasses';
 
 const BUBBLE = '_bubble';
 
-class TreeView<t> extends EventTarget implements Generatable<HTMLUListElement> {
+export class TreeView<t>
+    extends EventTarget
+    implements Generatable<HTMLUListElement>
+{
     root: TreeViewItem<t>;
     selected: TreeViewItem<t>;
 
@@ -47,7 +50,7 @@ class TreeView<t> extends EventTarget implements Generatable<HTMLUListElement> {
     }
 }
 
-class TreeViewItem<t>
+export class TreeViewItem<t>
     extends EventTarget
     implements Generatable<HTMLLIElement>
 {
@@ -153,5 +156,3 @@ class TreeViewItem<t>
         this._hideChildren(false);
     }
 }
-
-export { TreeView, TreeViewItem };
