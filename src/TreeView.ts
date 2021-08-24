@@ -85,7 +85,7 @@ export class TreeViewItem<t>
         this.ul = document.createElement('ul');
         this.a = document.createElement('a');
 
-        this.a.classList.add(TREE_VIEW_ITEM);
+        this.li.classList.add(TREE_VIEW_ITEM);
         this.li.append(this.a, this.ul);
 
         this.shown = false;

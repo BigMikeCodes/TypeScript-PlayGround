@@ -1,7 +1,7 @@
-a.tree-view-item{
+li.tree-view-item a{
     cursor: pointer;
 }
 
-a.tree-view-item.tree-selected{
+li.tree-view-item a.tree-selected{
     background-color: #7fbdff;
 }
