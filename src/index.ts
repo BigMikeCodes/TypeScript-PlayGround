@@ -1,4 +1,4 @@
-import { TreeView, TreeViewItem } from './TreeView';
+import { TreeView, TreeViewChangeDetail, TreeViewItem } from './TreeView';
 import { MenuBar, ButtonInputConfig, buttonFromConfig } from './ControlBar';
 import { Client } from '../node_modules/@stomp/stompjs/esm6/client';
 
@@ -97,9 +97,17 @@ class WebApp {
             text: 'Collapse Selected Recursively',
         };
 
-        tree.addEventListener('change', () => {
-            alert('change');
-        });
+        tree.addEventListener(
+            'change',
+            (event: CustomEvent<TreeViewChangeDetail<String>>) => {
+                const detail = event.detail;
+
+                if (detail.old) {
+                    detail.old.deSelect();
+                }
+                detail.new.select();
+            }
+        );
 
         const treeViewButtons = [
             addBtnConfig,

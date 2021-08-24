@@ -1,0 +1,7 @@
+a.tree-view-item{
+    cursor: pointer;
+}
+
+a.tree-view-item.tree-selected{
+    background-color: #7fbdff;
+}

@@ -1,7 +1,12 @@
 import { Generatable } from './Generatable.js';
-import { DISPLAY_NONE } from './CssClasses';
+import { DISPLAY_NONE, TREE_SELECTED, TREE_VIEW_ITEM } from './CssClasses';
 
 const BUBBLE = '_bubble';
+
+export interface TreeViewChangeDetail<t> {
+    old: TreeViewItem<t> | null;
+    new: TreeViewItem<t>;
+}
 
 export class TreeView<t>
     extends EventTarget
@@ -15,9 +20,16 @@ export class TreeView<t>
 
         this.root = root;
         this.root.addEventListener(BUBBLE, (e: CustomEvent) => {
+            const oldSelected = this.selected;
             this.selected = e.detail;
+
+            const eventDetails: TreeViewChangeDetail<t> = {
+                old: oldSelected,
+                new: this.selected,
+            };
+
             this.dispatchEvent(
-                new CustomEvent('change', { detail: this.selected })
+                new CustomEvent('change', { detail: eventDetails })
             );
         });
     }
@@ -59,7 +71,9 @@ export class TreeViewItem<t>
     value: t;
     li: HTMLLIElement;
     ul: HTMLUListElement;
+    a: HTMLAnchorElement;
     shown: boolean;
+    selected: boolean;
 
     constructor(value: t) {
         super();
@@ -69,8 +83,13 @@ export class TreeViewItem<t>
 
         this.li = document.createElement('li');
         this.ul = document.createElement('ul');
+        this.a = document.createElement('a');
+
+        this.a.classList.add(TREE_VIEW_ITEM);
+        this.li.append(this.a, this.ul);
 
         this.shown = false;
+        this.selected = false;
     }
 
     getChildren(): Set<TreeViewItem<t>> {
@@ -78,17 +97,13 @@ export class TreeViewItem<t>
     }
 
     generateElement(): HTMLLIElement {
-        const a = document.createElement('a');
-        console.log(a);
-        a.append(document.createTextNode(this.value.toString()));
-
-        a.addEventListener('click', () => this._emitClick());
+        this.a.append(document.createTextNode(this.value.toString()));
+        this.a.addEventListener('click', () => this._emitClick());
 
         this.children.forEach((child) =>
             this.ul.append(child.generateElement())
         );
 
-        this.li.append(a, this.ul);
         this.shown = true;
         return this.li;
     }
@@ -154,5 +169,13 @@ export class TreeViewItem<t>
         }
 
         this._hideChildren(false);
+    }
+
+    select() {
+        this.a.classList.add(TREE_SELECTED);
+    }
+
+    deSelect() {
+        this.a.classList.remove(TREE_SELECTED);
     }
 }
