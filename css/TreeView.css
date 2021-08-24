@@ -8,7 +8,7 @@ li.tree-view-item a.tree-selected{
 
 li.tree-view-item{
     list-style-type: none;
-    padding-left: 2rem;
+    padding-left: 20px;
     background-position: 0 0;
     background-size: 1rem 1rem;
     background-repeat: no-repeat;
