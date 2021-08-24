@@ -1,4 +1,5 @@
 import { Generatable } from './Generatable.js';
+import { DISPLAY_NONE } from './CssClasses';
 
 const BUBBLE = '_bubble';
 
@@ -126,6 +127,30 @@ class TreeViewItem<t>
 
     removeChild(treeViewItem: TreeViewItem<t>): Boolean {
         return this.children.delete(treeViewItem);
+    }
+
+    _hideChildren(hide: Boolean) {
+        if (hide) {
+            this.ul.classList.add(DISPLAY_NONE);
+        } else {
+            this.ul.classList.remove(DISPLAY_NONE);
+        }
+    }
+
+    collapse(recursively: Boolean = false) {
+        if (recursively) {
+            this.children.forEach((child) => child.collapse(true));
+        }
+
+        this._hideChildren(true);
+    }
+
+    expand(recursively: Boolean = false) {
+        if (recursively) {
+            this.children.forEach((child) => child.expand(true));
+        }
+
+        this._hideChildren(false);
     }
 }
 

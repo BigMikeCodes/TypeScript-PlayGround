@@ -49,11 +49,66 @@ class WebApp {
             text: 'Delete Selected',
         };
 
+        const expandBtnConfig: ButtonInputConfig = {
+            id: 'expand-selected',
+            onClick: () => {
+                const selected = tree.getSelected();
+
+                if (selected) {
+                    selected.expand();
+                }
+            },
+            text: 'Expand Selected',
+        };
+
+        const collapseBtnConfig: ButtonInputConfig = {
+            id: 'collapse-selected',
+            onClick: () => {
+                const selected = tree.getSelected();
+
+                if (selected) {
+                    selected.collapse();
+                }
+            },
+            text: 'Collapse Selected',
+        };
+
+        const expandRecursivelyBtnConfig: ButtonInputConfig = {
+            id: 'expand-selected-recursively',
+            onClick: () => {
+                const selected = tree.getSelected();
+
+                if (selected) {
+                    selected.expand(true);
+                }
+            },
+            text: 'Expand Selected Recursively',
+        };
+
+        const collapseRecursivelyBtnConfig: ButtonInputConfig = {
+            id: 'collapse-selected-recursively',
+            onClick: () => {
+                const selected = tree.getSelected();
+
+                if (selected) {
+                    selected.collapse(true);
+                }
+            },
+            text: 'Collapse Selected Recursively',
+        };
+
         tree.addEventListener('change', () => {
             alert('change');
         });
 
-        const treeViewButtons = [addBtnConfig, deleteBtnConfig];
+        const treeViewButtons = [
+            addBtnConfig,
+            deleteBtnConfig,
+            expandBtnConfig,
+            collapseBtnConfig,
+            expandRecursivelyBtnConfig,
+            collapseRecursivelyBtnConfig,
+        ];
 
         const treeViewControls = new MenuBar(
             ...treeViewButtons.map((config) => buttonFromConfig(config))
