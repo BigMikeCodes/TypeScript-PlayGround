@@ -1,5 +1,12 @@
 import { Generatable } from './Generatable.js';
-import { DISPLAY_NONE, TREE_SELECTED, TREE_VIEW_ITEM } from './CssClasses';
+import {
+    DISPLAY_NONE,
+    TREE_SELECTED,
+    TREE_VIEW_ITEM,
+    TREE_VIEW_UL,
+    TREE_VIEW_ITEM_COLLAPSED,
+    TREE_VIEW_ITEM_EXPANDED,
+} from './CssClasses';
 
 const BUBBLE = '_bubble';
 
@@ -44,6 +51,7 @@ export class TreeView<t>
 
     generateElement(): HTMLUListElement {
         const ul = document.createElement('ul');
+        ul.classList.add(TREE_VIEW_UL);
 
         this.root
             .getChildren()
@@ -104,6 +112,7 @@ export class TreeViewItem<t>
             this.ul.append(child.generateElement())
         );
 
+        this.li.classList.add(TREE_VIEW_ITEM_EXPANDED);
         this.shown = true;
         return this.li;
     }
@@ -155,12 +164,23 @@ export class TreeViewItem<t>
         }
     }
 
+    _showClosed(isCollapsed: Boolean) {
+        if (isCollapsed) {
+            this.li.classList.remove(TREE_VIEW_ITEM_EXPANDED);
+            this.li.classList.add(TREE_VIEW_ITEM_COLLAPSED);
+        } else {
+            this.li.classList.add(TREE_VIEW_ITEM_EXPANDED);
+            this.li.classList.remove(TREE_VIEW_ITEM_COLLAPSED);
+        }
+    }
+
     collapse(recursively: Boolean = false) {
         if (recursively) {
             this.children.forEach((child) => child.collapse(true));
         }
 
         this._hideChildren(true);
+        this._showClosed(true);
     }
 
     expand(recursively: Boolean = false) {
@@ -169,6 +189,7 @@ export class TreeViewItem<t>
         }
 
         this._hideChildren(false);
+        this._showClosed(false);
     }
 
     select() {

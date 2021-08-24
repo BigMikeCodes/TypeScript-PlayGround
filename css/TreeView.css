@@ -5,3 +5,18 @@ li.tree-view-item a{
 li.tree-view-item a.tree-selected{
     background-color: #7fbdff;
 }
+
+li.tree-view-item{
+    padding-left: 2rem;
+    background-position: 0 0;
+    background-size: 1rem 1rem;
+    background-repeat: no-repeat;
+}
+
+li.tree-view-item-expanded{
+    background-image: url(../node_modules/@fortawesome/fontawesome-free/svgs/solid/folder-open.svg);
+}
+
+li.tree-view-item-collapsed{
+    background-image: url(../node_modules/@fortawesome/fontawesome-free/svgs/solid/folder.svg);
+}
