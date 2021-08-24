@@ -21,3 +21,7 @@ li.tree-view-item-expanded{
 li.tree-view-item-collapsed{
     background-image: url(../node_modules/@fortawesome/fontawesome-free/svgs/solid/folder.svg);
 }
+
+ul.tree-view, ul.tree-view ul{
+    padding-left: 0px;
+}
