@@ -27,6 +27,10 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
+    "@codemirror/commands": "^0.19.4",
+    "@codemirror/state": "^0.19.2",
+    "@codemirror/text": "^0.19.3",
+    "@codemirror/view": "^0.19.7",
     "@fortawesome/fontawesome-free": "^5.15.4"
   }
 }
