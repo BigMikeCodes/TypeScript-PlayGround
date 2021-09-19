@@ -2,6 +2,10 @@ import { TreeView, TreeViewChangeDetail, TreeViewItem } from './TreeView';
 import { MenuBar, ButtonInputConfig, buttonFromConfig } from './ControlBar';
 import { Client } from '../node_modules/@stomp/stompjs/esm6/client';
 
+import { EditorState } from '@codemirror/state';
+import { EditorView, keymap } from '@codemirror/view';
+import { defaultKeymap } from '@codemirror/commands';
+
 class WebApp {
     static main(): void {
         const root = new TreeViewItem<String>('root');
@@ -122,6 +126,19 @@ class WebApp {
             ...treeViewButtons.map((config) => buttonFromConfig(config))
         );
         controlsContainer.append(treeViewControls.generateElement());
+
+
+        const editorParent: HTMLElement = document.getElementById('editor-parent');
+        
+        const startState = EditorState.create({
+            doc: 'Hello world',
+            extensions: [keymap.of(defaultKeymap)]
+        });
+
+        const view = new EditorView({
+            state: startState,
+            parent: editorParent
+        });
     }
 }
 
