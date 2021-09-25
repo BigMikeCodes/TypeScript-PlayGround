@@ -1,7 +1,6 @@
 import { TreeView, TreeViewChangeDetail, TreeViewItem } from './TreeView';
 import { MenuBar, ButtonInputConfig, buttonFromConfig } from './ControlBar';
 import { Client } from '../node_modules/@stomp/stompjs/esm6/client';
-
 import { EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { defaultKeymap } from '@codemirror/commands';
@@ -14,12 +13,12 @@ class WebApp {
 
         const startState = EditorState.create({
             doc: 'Hello world',
-            extensions: [keymap.of(defaultKeymap),basicSetup]
+            extensions: [keymap.of(defaultKeymap), basicSetup],
         });
 
         const view = new EditorView({
             state: startState,
-            parent: editorParent
+            parent: editorParent,
         });
 
         const root = new TreeViewItem<String>('root');
