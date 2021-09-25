@@ -5,9 +5,23 @@ import { Client } from '../node_modules/@stomp/stompjs/esm6/client';
 import { EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { defaultKeymap } from '@codemirror/commands';
+import { basicSetup } from '@codemirror/basic-setup';
 
 class WebApp {
     static main(): void {
+        const editorParent: HTMLElement =
+            document.getElementById('editor-parent');
+
+        const startState = EditorState.create({
+            doc: 'Hello world',
+            extensions: [keymap.of(defaultKeymap),basicSetup],
+        });
+
+        const view = new EditorView({
+            state: startState,
+            parent: editorParent
+        });
+
         const root = new TreeViewItem<String>('root');
 
         const child1 = new TreeViewItem<String>('child1');
@@ -113,6 +127,15 @@ class WebApp {
             }
         );
 
+        const editorChangeSetBtn: ButtonInputConfig = {
+            id: 'get-editor-change-set',
+            onClick: () => {
+                const changes = view.state.changes({ from: 0 });
+                console.log(changes.toJSON());
+            },
+            text: 'Get Change Set',
+        };
+
         const treeViewButtons = [
             addBtnConfig,
             deleteBtnConfig,
@@ -120,25 +143,13 @@ class WebApp {
             collapseBtnConfig,
             expandRecursivelyBtnConfig,
             collapseRecursivelyBtnConfig,
+            editorChangeSetBtn,
         ];
 
         const treeViewControls = new MenuBar(
             ...treeViewButtons.map((config) => buttonFromConfig(config))
         );
         controlsContainer.append(treeViewControls.generateElement());
-
-
-        const editorParent: HTMLElement = document.getElementById('editor-parent');
-        
-        const startState = EditorState.create({
-            doc: 'Hello world',
-            extensions: [keymap.of(defaultKeymap)]
-        });
-
-        const view = new EditorView({
-            state: startState,
-            parent: editorParent
-        });
     }
 }
 
