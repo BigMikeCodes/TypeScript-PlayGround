@@ -14,7 +14,7 @@ class WebApp {
 
         const startState = EditorState.create({
             doc: 'Hello world',
-            extensions: [keymap.of(defaultKeymap),basicSetup],
+            extensions: [keymap.of(defaultKeymap),basicSetup]
         });
 
         const view = new EditorView({
