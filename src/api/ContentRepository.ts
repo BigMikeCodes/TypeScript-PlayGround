@@ -1,9 +1,9 @@
-enum NodeType {
+export enum NodeType {
     DIRECTORY = 'DIRECTORY',
     PLAIN_TEXT = 'PLAIN_TEXT',
 }
 
-interface MetaData {
+export interface MetaData {
     lastEdit: Number;
     created: Number;
     path: String;
@@ -13,21 +13,32 @@ interface MetaData {
     mediaType?: String;
 }
 
-interface ProjectNode {
+export interface ProjectNode {
     type: NodeType;
     children: Array<ProjectNode>;
+    metaData: MetaData;
 }
 
-interface Project {
+export interface Project {
     id: String;
     owner: String;
     name: String;
     location: String;
     created: Array<String>;
     lastEdit: Array<String>;
-    structure: Array<ProjectNode>;
+    structure?: Array<ProjectNode>;
 }
 
-class ContentRepository {
-    static getProjectStructure() {}
+const PORT = 8006;
+const ADDRESS = 'http://127.0.0.1';
+
+export class ContentRepository {
+    static async getProject(projectId: String): Promise<Project> {
+        const url = `${ADDRESS}:${PORT}/api/project/${projectId}/structure`;
+        const response = await fetch(url, { method: 'GET'});
+
+        if (response.ok) {
+            return (await response.json()) as Project;
+        }
+    }
 }
