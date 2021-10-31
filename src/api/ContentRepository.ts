@@ -4,13 +4,13 @@ export enum NodeType {
 }
 
 export interface MetaData {
-    lastEdit: Number;
-    created: Number;
-    path: String;
-    repositoryUUID: String;
-    name: String;
-    size?: Number;
-    mediaType?: String;
+    lastEdit: number;
+    created: number;
+    path: string;
+    repositoryUUID: string;
+    name: string;
+    size?: number;
+    mediaType?: string;
 }
 
 export interface ProjectNode {

@@ -5,9 +5,11 @@ import { EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { defaultKeymap } from '@codemirror/commands';
 import { basicSetup } from '@codemirror/basic-setup';
+import { ContentRepository } from './api/ContentRepository';
+import { ProjectTreeView } from './ProjectTreeView';
 
 class WebApp {
-    static main(): void {
+    static async main(): Promise<void> {
         const editorParent: HTMLElement =
             document.getElementById('editor-parent');
 
@@ -149,7 +151,24 @@ class WebApp {
             ...treeViewButtons.map((config) => buttonFromConfig(config))
         );
         controlsContainer.append(treeViewControls.generateElement());
+
+
+        const projectTreeView = await WebApp.setUpProject();
+        
+        const projectTreeViewContainer = document.querySelector('#project-container');
+        projectTreeViewContainer.append(projectTreeView.generateElement());
+
     }
+
+
+    static async setUpProject(): Promise<ProjectTreeView> {
+        const projectGuid = '8486e895-e43b-42bf-843a-92a1ffae2cc2';
+        const project = await ContentRepository.getProject(projectGuid);
+
+        return ProjectTreeView.fromProject(project);
+
+    }
+
 }
 
 (function () {
