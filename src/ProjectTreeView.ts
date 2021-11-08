@@ -51,3 +51,8 @@ export class ProjectTreeView extends TreeView<ProjectNode> {
         );
     }
 }
+
+export interface ProjectTreeViewChangeDetail {
+    old: ProjectTreeViewItem | null;
+    new: ProjectTreeViewItem;
+}
