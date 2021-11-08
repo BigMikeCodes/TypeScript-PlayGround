@@ -5,8 +5,12 @@ import { EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { defaultKeymap } from '@codemirror/commands';
 import { basicSetup } from '@codemirror/basic-setup';
-import { ContentRepository } from './api/ContentRepository';
-import { ProjectTreeView } from './ProjectTreeView';
+import { ContentRepository, ProjectNode } from './api/ContentRepository';
+import {
+    ProjectTreeView,
+    ProjectTreeViewChangeDetail,
+    ProjectTreeViewItem,
+} from './ProjectTreeView';
 
 class WebApp {
     static async main(): Promise<void> {
@@ -163,7 +167,20 @@ class WebApp {
         const projectGuid = '8486e895-e43b-42bf-843a-92a1ffae2cc2';
         const project = await ContentRepository.getProject(projectGuid);
 
-        return ProjectTreeView.fromProject(project);
+        const projectTreeView = ProjectTreeView.fromProject(project);
+
+        projectTreeView.addEventListener(
+            'change',
+            (event: CustomEvent<ProjectTreeViewChangeDetail>) => {
+                const detail = event.detail;
+
+                const newValue: ProjectNode = detail.new.getValue();
+
+                console.log(newValue.metaData.path);
+            }
+        );
+
+        return projectTreeView;
     }
 }
 
