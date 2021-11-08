@@ -1,6 +1,5 @@
 import { TreeView, TreeViewChangeDetail, TreeViewItem } from './TreeView';
 import { MenuBar, ButtonInputConfig, buttonFromConfig } from './ControlBar';
-import { Client } from '../node_modules/@stomp/stompjs/esm6/client';
 import { EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { defaultKeymap } from '@codemirror/commands';
@@ -9,7 +8,6 @@ import { ContentRepository, ProjectNode } from './api/ContentRepository';
 import {
     ProjectTreeView,
     ProjectTreeViewChangeDetail,
-    ProjectTreeViewItem,
 } from './ProjectTreeView';
 
 class WebApp {
