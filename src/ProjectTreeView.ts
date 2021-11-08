@@ -10,7 +10,7 @@ export class ProjectTreeViewItem extends TreeViewItem<ProjectNode> {
         let title = this.value.metaData.name;
 
         if (this.value.type === NodeType.PLAIN_TEXT) {
-            title = `title (${this.value.metaData.size})`;
+            title = `${this.value.metaData.name} (${this.value.metaData.size})`;
         }
 
         // console.log();
