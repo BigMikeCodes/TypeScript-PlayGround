@@ -158,17 +158,6 @@ class WebApp {
 
         const projectTreeView = await WebApp.setUpProject();
 
-        const projectTreeViewContainer =
-            document.querySelector('#project-container');
-        projectTreeViewContainer.append(projectTreeView.generateElement());
-    }
-
-    static async setUpProject(): Promise<ProjectTreeView> {
-        const projectGuid = '8486e895-e43b-42bf-843a-92a1ffae2cc2';
-        const project = await ContentRepository.getProject(projectGuid);
-
-        const projectTreeView = ProjectTreeView.fromProject(project);
-
         projectTreeView.addEventListener(
             'change',
             (event: CustomEvent<ProjectTreeViewChangeDetail>) => {
@@ -179,6 +168,17 @@ class WebApp {
                 console.log(newValue.metaData.path);
             }
         );
+
+        const projectTreeViewContainer =
+            document.querySelector('#project-container');
+        projectTreeViewContainer.append(projectTreeView.generateElement());
+    }
+
+    static async setUpProject(): Promise<ProjectTreeView> {
+        const projectGuid = '8486e895-e43b-42bf-843a-92a1ffae2cc2';
+        const project = await ContentRepository.getProject(projectGuid);
+
+        const projectTreeView = ProjectTreeView.fromProject(project);
 
         return projectTreeView;
     }
