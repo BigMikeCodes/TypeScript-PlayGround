@@ -1,29 +1,20 @@
 import { TreeView, TreeViewChangeDetail, TreeViewItem } from './TreeView';
 import { MenuBar, ButtonInputConfig, buttonFromConfig } from './ControlBar';
-import { EditorState } from '@codemirror/state';
-import { EditorView, keymap } from '@codemirror/view';
-import { defaultKeymap } from '@codemirror/commands';
-import { basicSetup } from '@codemirror/basic-setup';
 import { ContentRepository, ProjectNode } from './api/ContentRepository';
 import {
     ProjectTreeView,
     ProjectTreeViewChangeDetail,
 } from './ProjectTreeView';
+import { DocumentEditor } from './Editor';
 
 class WebApp {
     static async main(): Promise<void> {
         const editorParent: HTMLElement =
             document.getElementById('editor-parent');
 
-        const startState = EditorState.create({
-            doc: 'Hello world',
-            extensions: [keymap.of(defaultKeymap), basicSetup],
-        });
+        const documentEditor = new DocumentEditor();
 
-        const view = new EditorView({
-            state: startState,
-            parent: editorParent,
-        });
+        editorParent.append(documentEditor.generateElement());
 
         const root = new TreeViewItem<String>('root');
 
@@ -130,15 +121,6 @@ class WebApp {
             }
         );
 
-        const editorChangeSetBtn: ButtonInputConfig = {
-            id: 'get-editor-change-set',
-            onClick: () => {
-                const changes = view.state.changes({ from: 0 });
-                console.log(changes.toJSON());
-            },
-            text: 'Get Change Set',
-        };
-
         const treeViewButtons = [
             addBtnConfig,
             deleteBtnConfig,
@@ -146,7 +128,6 @@ class WebApp {
             collapseBtnConfig,
             expandRecursivelyBtnConfig,
             collapseRecursivelyBtnConfig,
-            editorChangeSetBtn,
         ];
 
         const treeViewControls = new MenuBar(
