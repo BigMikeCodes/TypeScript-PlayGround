@@ -25,4 +25,15 @@ export class DocumentEditor implements Generatable<HTMLElement> {
 
         return editorParent;
     }
+
+
+    showContent(content: string){
+
+        const state = EditorState.create({
+            doc: content,
+            extensions: [keymap.of(defaultKeymap), basicSetup],
+        })
+        
+        this.editorView.setState(state);
+    }
 }
