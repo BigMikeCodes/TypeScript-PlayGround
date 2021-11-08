@@ -18,7 +18,6 @@ export class ProjectTreeViewItem extends TreeViewItem<ProjectNode> {
         this.a.addEventListener('click', () => this._emitClick());
         this.a.append(document.createTextNode(title));
 
-
         this.children.forEach((child) => {
             this.ul.append(child.generateElement());
         });
@@ -29,25 +28,26 @@ export class ProjectTreeViewItem extends TreeViewItem<ProjectNode> {
 }
 
 export class ProjectTreeView extends TreeView<ProjectNode> {
-    
     constructor(root: ProjectTreeViewItem) {
         super(root);
     }
 
     static fromProject(project: Project): ProjectTreeView {
-
         const root = new ProjectTreeViewItem(null);
-        project.structure.forEach((projectNode: ProjectNode) => ProjectTreeView._recursivelyCreateItems(root, projectNode));
+        project.structure.forEach((projectNode: ProjectNode) =>
+            ProjectTreeView._recursivelyCreateItems(root, projectNode)
+        );
         return new ProjectTreeView(root);
-        
     }
 
-
-    static _recursivelyCreateItems(parent: ProjectTreeViewItem, projectNode: ProjectNode): void{
-
+    static _recursivelyCreateItems(
+        parent: ProjectTreeViewItem,
+        projectNode: ProjectNode
+    ): void {
         const newNode = new ProjectTreeViewItem(projectNode);
         parent.addChild(newNode);
-        projectNode.children.forEach((child)=>ProjectTreeView._recursivelyCreateItems(newNode, child));
-
+        projectNode.children.forEach((child) =>
+            ProjectTreeView._recursivelyCreateItems(newNode, child)
+        );
     }
 }

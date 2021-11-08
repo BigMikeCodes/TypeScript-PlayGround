@@ -35,7 +35,7 @@ const ADDRESS = 'http://127.0.0.1';
 export class ContentRepository {
     static async getProject(projectId: String): Promise<Project> {
         const url = `${ADDRESS}:${PORT}/api/project/${projectId}/structure`;
-        const response = await fetch(url, { method: 'GET'});
+        const response = await fetch(url, { method: 'GET' });
 
         if (response.ok) {
             return (await response.json()) as Project;
