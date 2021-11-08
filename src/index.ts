@@ -1,11 +1,12 @@
 import { TreeView, TreeViewChangeDetail, TreeViewItem } from './TreeView';
 import { MenuBar, ButtonInputConfig, buttonFromConfig } from './ControlBar';
-import { ContentRepository, ProjectNode } from './api/ContentRepository';
+import { ContentRepository, NodeType, ProjectNode } from './api/ContentRepository';
 import {
     ProjectTreeView,
     ProjectTreeViewChangeDetail,
 } from './ProjectTreeView';
 import { DocumentEditor } from './Editor';
+import {ContentApi} from './api/ContentApi';
 
 class WebApp {
     static async main(): Promise<void> {
@@ -139,10 +140,18 @@ class WebApp {
 
         projectTreeView.addEventListener(
             'change',
-            (event: CustomEvent<ProjectTreeViewChangeDetail>) => {
+            async (event: CustomEvent<ProjectTreeViewChangeDetail>) => {
                 const detail = event.detail;
 
                 const newValue: ProjectNode = detail.new.getValue();
+
+                if(newValue.type === NodeType.PLAIN_TEXT){
+                    const path = newValue.metaData.path;
+                    
+                    const content = await ContentApi.getPlainText(path);
+
+                    documentEditor.showContent(content);
+                }
 
                 console.log(newValue.metaData.path);
             }
