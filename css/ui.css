@@ -5,6 +5,7 @@
 body{
     width: 100vw;
     height: 100vh;
+    margin: 0;
 }
 
 div.content-grid{
@@ -31,6 +32,7 @@ div.content-grid{
 
 .editor-cell{
     grid-area: editor-cell;
+    overflow-x: hidden;
 }
 
 .preview-cell{
